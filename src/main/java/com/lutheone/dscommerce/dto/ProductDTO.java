@@ -1,8 +1,10 @@
 package com.lutheone.dscommerce.dto;
 
+import com.lutheone.dscommerce.entities.Product;
+
 public class ProductDTO {
 
-    private String id;
+    private Long id;
     private String name;
     private String description;
     private Double price;
@@ -11,7 +13,7 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(String id, Double price, String imgUrl, String description, String name) {
+    public ProductDTO(Long id, Double price, String imgUrl, String description, String name) {
         this.id = id;
         this.price = price;
         this.imgUrl = imgUrl;
@@ -19,7 +21,15 @@ public class ProductDTO {
         this.name = name;
     }
 
-    public String getId() {
+    public ProductDTO(Product entity) {
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.description = entity.getDescription();
+        this.price = entity.getPrice();
+        this.imgUrl = entity.getImgUrl();
+    }
+
+    public Long getId() {
         return id;
     }
 
