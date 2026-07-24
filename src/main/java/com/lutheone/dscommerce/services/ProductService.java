@@ -5,6 +5,8 @@ import com.lutheone.dscommerce.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -20,6 +22,13 @@ public class ProductService {
                 .map(ProductDTO::new)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
+    }
+
+    @Transactional
+    public List<ProductDTO> findAll() {
+        return repository.findAll().stream()
+                .map(ProductDTO::new)
+                .toList();
     }
 
 }
