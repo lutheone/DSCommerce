@@ -1,29 +1,33 @@
 package com.lutheone.dscommerce.controllers;
 
-import com.lutheone.dscommerce.entities.Product;
-import com.lutheone.dscommerce.repositories.ProductRepository;
+import com.lutheone.dscommerce.dto.ProductDTO;
+import com.lutheone.dscommerce.services.ProductService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductRepository repository;
+    private final ProductService service;
 
-    public ProductController(ProductRepository repository) {
-        this.repository = repository;
+    public ProductController(ProductService service) {
+        this.service = service;
+    }
+
+    @GetMapping(value = "/{id}")
+    public ProductDTO findById(@PathVariable Long id) {
+        return service.findById(id);
     }
 
     @GetMapping
-    public String test(){
-        return repository.findById(1L)
-                .map(Product::getName)
-                .orElse("Produto não encontrado");
-
-
+    public List<ProductDTO> findAll() {
+        return service.findAll();
     }
 
 }
