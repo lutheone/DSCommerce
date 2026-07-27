@@ -1,11 +1,13 @@
 package com.lutheone.dscommerce.services;
 
 import com.lutheone.dscommerce.dto.ProductDTO;
+import com.lutheone.dscommerce.entities.Product;
 import com.lutheone.dscommerce.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @Service
 public class ProductService {
@@ -24,11 +26,10 @@ public class ProductService {
 
     }
 
-    @Transactional
-    public List<ProductDTO> findAll() {
-        return repository.findAll().stream()
-                .map(ProductDTO::new)
-                .toList();
+    @Transactional(readOnly = true)
+    public Page<ProductDTO> findAll(Pageable pageable) {
+        Page<Product> page = repository.findAll(pageable);
+        return page.map(ProductDTO::new);
     }
 
 }
