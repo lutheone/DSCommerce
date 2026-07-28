@@ -3,6 +3,7 @@ package com.lutheone.dscommerce.controllers;
 import com.lutheone.dscommerce.dto.ProductDTO;
 import com.lutheone.dscommerce.services.ProductService;
 
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO productDTO) {
         ProductDTO result = service.insert(productDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -45,10 +46,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> update(
-            @PathVariable Long id,
-            @RequestBody ProductDTO productDTO) {
-
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {
         ProductDTO result = service.update(id, productDTO);
         return ResponseEntity.ok(result);
     }

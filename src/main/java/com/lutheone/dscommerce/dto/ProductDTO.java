@@ -2,12 +2,23 @@ package com.lutheone.dscommerce.dto;
 
 import com.lutheone.dscommerce.entities.Product;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 public class ProductDTO {
 
     private Long id;
+
+    @Size(min = 3, max = 80)
+    @NotBlank(message = "Field cannot be blank")
     private String name;
+
+    @Size(min = 10, message = "Description must have at least 10 characters")
+    @NotBlank(message = "Field cannot be blank")
     private String description;
+
+    @Positive(message = "Price must be positive")
     private Double price;
     private String imgUrl;
 
